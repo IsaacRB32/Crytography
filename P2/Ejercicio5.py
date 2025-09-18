@@ -124,11 +124,11 @@ while(True):
         tamanio_alfabeto = len(ascii_printables)
         print(f"Alfaebto ASCII n=95: \n {ascii_printables}\n")
         k_valida_random = generarLLaveRandom(tamanio_alfabeto)
-        print(f"**La llave ramdon generada es K = {k_valida_random}**")
+        print(f"**  La llave randon generada es K = {k_valida_random}   **")
         print("\nAhora cifraras un mensaje con esa llave")
         mensaje = input("Mensaje M = ")
         mensaje_cifrado = "".join(affineCipher(mensaje,k_valida_random,ascii_printables))
-        print(f"\n**El mensaje cifrado es C = {mensaje_cifrado}**")
+        print(f"\n**    El mensaje cifrado es C = {mensaje_cifrado} **")
     elif opc == 3:
         ascii_printables = [chr(i) for i in range(32, 127)]
         llave_compartida = []
@@ -140,7 +140,7 @@ while(True):
         print(f"La llave es K = {llave_compartida}")
         mensaje_cifrado = input("Ingresa el mensaje cifrado C = ")
         mensaje_decifrado = "".join(affinDecipher(mensaje_cifrado,llave_compartida,ascii_printables))
-        print(f"\n**El mensaje es M = {mensaje_decifrado}**")
+        print(f"\n**    El mensaje es M = {mensaje_decifrado}   **")
     elif opc == 4:
         break
     else:
