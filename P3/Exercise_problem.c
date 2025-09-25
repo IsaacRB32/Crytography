@@ -65,11 +65,11 @@ int algoritmo_euclides_extendido(int r0_inicial, int r1_inicial, int *s_final, i
         t_anterior = t_actual; 
         t_actual = t_siguiente; 
         
-        // 1.1 i = i + 1
+        //  i = i + 1
         i++;
     }
 
-    // RETORNO: El MCD es el último r_i ≠ 0 (r_anterior).
+    // RETORNO: El MCD es el último r_i distinto de 0 (r_anterior).
     // Los coeficientes s y t son los correspondientes al MCD.
     *s_final = s_anterior;
     *t_final = t_anterior;
