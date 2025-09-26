@@ -2,7 +2,7 @@ import ctypes, os
 from sympy import factorint
 import random
 
-# Cargar la librería C con EEA  #######################333
+###### Cargar la librería C con eea ###### 
 class Resultado(ctypes.Structure):
     _fields_ = [("gcd", ctypes.c_int),
                 ("s", ctypes.c_int),
@@ -15,8 +15,27 @@ lib.eea.argtypes = [ctypes.c_int, ctypes.c_int]
 lib.eea.restype = Resultado
 ###########################################################333
 
-def esMultiplo(numero, divisor):
-    return numero % divisor == 0
+# def esMultiplo(numero, divisor):
+#     return numero % divisor == 0
+
+# def zetaEstrella(n):
+#     if n < 2:
+#         print("Tienes que introducir un n mayor o igual a 2")
+#         return []
+    
+#     resultado = []
+#     factores = list(factorint(n))  
+    
+#     for i in range(1, n):
+#         es_valido = True
+#         for primo in factores:
+#             if esMultiplo(i, primo):
+#                 es_valido = False
+#                 break
+#         if es_valido:
+#             resultado.append(i)
+    
+#     return resultado
 
 def zetaEstrella(n):
     if n < 2:
@@ -24,17 +43,9 @@ def zetaEstrella(n):
         return []
     
     resultado = []
-    factores = list(factorint(n))  
-    
     for i in range(1, n):
-        es_valido = True
-        for primo in factores:
-            if esMultiplo(i, primo):
-                es_valido = False
-                break
-        if es_valido:
+        if lib.eea(i, n).gcd == 1:
             resultado.append(i)
-    
     return resultado
 
 # def inverso (n,a):
