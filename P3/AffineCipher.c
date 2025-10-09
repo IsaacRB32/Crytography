@@ -138,7 +138,7 @@ int main() {
             printf("\nLlave aleatoria: K = (%d,%d)\n", a, b);
 
             char mensaje[100];
-            printf("*Alfabeto ASCII*\n", n);
+            printf("*Alfabeto ASCII*\n");
             printf("%s\n\n", alfabeto);
             printf("Ingrese mensaje a cifrar: M = ");
             fgets(mensaje, sizeof(mensaje), stdin);
