@@ -5,6 +5,7 @@
 char* permutation(char *M, int *P, int tamanioP) {
     int size_M = strlen(M);
     int size_P = tamanioP;
+    
     int blocks = size_M / size_P;
     int module = size_M % size_P;
     int aux_t = 0;
@@ -63,6 +64,8 @@ int main() {
 
     printf("Ingrese el tamanio de la permutacion: ");
     scanf("%d", &tamanio);
+
+    if (tamanio < 3) printf("El tamanio de la permutacion tiene que ser mayor igual a 3\n"); return 0;
 
     P = (int *)malloc(tamanio * sizeof(int));
     printf("Ingrese los %d numeros de la permutacion separados por espacio:\n", tamanio);
