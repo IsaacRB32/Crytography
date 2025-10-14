@@ -65,7 +65,10 @@ int main() {
     printf("Ingrese el tamanio de la permutacion: ");
     scanf("%d", &tamanio);
 
-    if (tamanio < 3) printf("El tamanio de la permutacion tiene que ser mayor igual a 3\n"); return 0;
+    if (tamanio < 3){
+        printf("El tamanio de la permutacion tiene que ser mayor igual a 3\n"); 
+        return 0;
+    } 
 
     P = (int *)malloc(tamanio * sizeof(int));
     printf("Ingrese los %d numeros de la permutacion separados por espacio:\n", tamanio);
