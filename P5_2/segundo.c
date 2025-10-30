@@ -11,7 +11,7 @@ void hexadecimal(char*M, int tamanio){
     printf("\n");
 }
 
-void table_sustitution (int S[16]){
+void S_random (int S[16]){
     int usados[16] = {0};
     int iter = 0;
 
@@ -33,7 +33,7 @@ void table_sustitution (int S[16]){
 }
 
 void sustitution_function(char*M,int S[16], int tamanio){
-    printf("Mensaje actual: %s\n", M);
+    //printf("Mensaje actual: %s\n", M);
     printf("Mensaje actual en hexadecimal:");
     hexadecimal(M,tamanio);
     for (int i = 0; i < tamanio; i++){
@@ -67,10 +67,10 @@ int main (){
     int tamanio;
     srand(time(NULL));
     
-    table_sustitution(S);
-    for ( int i = 0; i < 16; i++){
-        printf("%X\t%X\n", i, S[i]);
-    }
+    S_random(S);
+    // for ( int i = 0; i < 16; i++){
+    //     printf("%X\t%X\n", i, S[i]);
+    // }
     
     printf("Ingrese mensaje: M = ");
     fgets( M, sizeof(M), stdin);

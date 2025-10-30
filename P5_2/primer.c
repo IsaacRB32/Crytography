@@ -24,7 +24,7 @@ void cifrar(char*M, char*K, char*C, int tamanio){
 void hexadecimal(char*M, int tamanio){
     for (int i = 0; i < tamanio; i++)
     {
-        printf("%02x ", (unsigned char)M[i]);
+        printf("%02X ", (unsigned char)M[i]);
     }
     printf("\n");
 }
