@@ -5,7 +5,7 @@ import base64
 
 with open("Key.txt","rb") as f:
     Key = base64.b64decode(f.read())
-
+    
 with open("cifrado.txt", "rb") as f:
     C_file = base64.b64decode(f.read())
 
