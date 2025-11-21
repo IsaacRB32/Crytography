@@ -102,7 +102,9 @@ int main() {
 
     char nombreLlave[100], nombreSbox[100];
     FILE *archivoLlave, *archivoSbox;
-    char mensaje[1024];
+    FILE *fentrada, *fsalida;
+    char archivoEntrada[100];
+    char mensaje[4096];
     //unsigned char M; 
     unsigned int K;
     int S[16];
@@ -138,11 +140,13 @@ int main() {
     for (int i = 0; i < 8; i++) fprintf(archP_inv, "%d%c", P_inv[i], i==7?'\n':' ');
     fclose(archP_inv);
     fclose(archP);
-    fclose(archP_inv);
 
+    printf("Ingrese el nombre del archivo de mensaje a cifrar: ");
+    scanf("%99s", archivoEntrada);
 
-    printf("Ingresa el mensaje en ASCII a cifrar: ");
-    scanf(" %[^\n]", mensaje);
+    fentrada = fopen(archivoEntrada, "r");
+    fgets(mensaje, sizeof(mensaje), fentrada);
+    fclose(fentrada);
 
     unsigned char k0 =  K & 0xFF;
     unsigned char k1 = (K >> 8)  & 0xFF;
@@ -159,7 +163,14 @@ int main() {
 
     char* base64 = base64_encode(ciphertext, len_mensaje);
 
-    printf("\nCIPHERTEXT BASE64:\n%s\n", base64);
+    printf("\nC en base64:\n%s\n", base64);
+
+    fsalida = fopen("cipher.txt", "w");
+    fprintf(fsalida, "%s", base64);
+    fclose(fsalida);
+
+    printf("\nCiphertext guardado en cipher.txt\n");
+
 
     free(base64);
 

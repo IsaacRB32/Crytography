@@ -103,7 +103,6 @@ int main() {
     char nombreLlave[100], nombreSbox[100];
     FILE *archivoLlave, *archivoSbox;
     char mensaje[1024];
-    //unsigned char M; 
     unsigned int K;
     int S[16];
     int P[8], P_inv[8];
@@ -173,7 +172,7 @@ int main() {
 
     char* base64 = base64_encode(ciphertext, len_mensaje + 1);
 
-    printf("\nCIPHERTEXT BASE64:\n%s\n", base64);
+    printf("\nC en base64:\n%s\n", base64);
 
     free(base64);
     free(ciphertext);

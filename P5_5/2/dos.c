@@ -92,6 +92,8 @@ unsigned char* base64_decode(const char *src, int *out_len) {
 
 int main() {
     char nombreLlave[100], nombreSinv[100], nombreP_inv[100];
+    char archivoCipher[100];
+    FILE *fentrada;
     FILE *archivoLlave, *archivoSinv;
     unsigned int K;
     int S_inv[16], P_inv[8];
@@ -123,9 +125,15 @@ int main() {
 
     cargar_permutacion(nombreP_inv, P_inv);
 
+    printf("Ingrese el archivo que contiene el ciphertext: ");
+    scanf("%99s", archivoCipher);
     char base64[2048];
-    printf("\nIngrese el ciphertext (Base64):\n");
-    scanf(" %[^\n]", base64);
+
+    fentrada = fopen(archivoCipher, "r");
+    fgets(base64, sizeof(base64), fentrada);
+
+    fclose(fentrada);
+
 
     int clen;
     unsigned char *cipher = base64_decode(base64, &clen);
@@ -137,12 +145,17 @@ int main() {
 
     printf("\nMensaje descifrado:\n");
 
+    FILE *fsalida = fopen("plain.txt", "w");
+
     for (int i = 0; i < clen; i++) {
         unsigned char M = descifrar_bloque(cipher[i], k0, k1, k2, k3, S_inv, P_inv);
         printf("%c", M);
+        fprintf(fsalida, "%c", M);
     }
 
-    printf("\n");
+    fclose(fsalida);
+
+    printf("\n\nMensaje guardado en plain.txt\n");
 
     free(cipher);
     return 0;
