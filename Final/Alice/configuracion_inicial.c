@@ -50,9 +50,16 @@ void generar_inversa_permutacion8(const int P[8], int P_inv[8]) {
     }
 }
 
+
+void generarLlave (unsigned int *K){
+    *K = (((unsigned int)rand() << 16) | (unsigned int)rand());
+}
+
+
 int main(void) {
     srand((unsigned int)time(NULL));
 
+    unsigned int K;
     int S[16];
     int S_inv[16];
     int P[8], P_inv[8];
@@ -62,6 +69,9 @@ int main(void) {
 
     generar_permutacion8(P);
     generar_inversa_permutacion8(P, P_inv);
+
+    generarLlave(&K);
+    if (K == 0) K = 1;
 
     FILE *archivoSbox = fopen("Sbox.txt", "w");
     if (!archivoSbox) { perror("Sbox.txt"); return 1; }
@@ -75,6 +85,11 @@ int main(void) {
     for (int i = 0; i < 16; i++) fprintf(archivoInv, "%X\t\t%X\n", i, S_inv[i]);
     fclose(archivoInv);
 
+    FILE *archivoLlave = fopen("llave.txt", "w");
+    if (!archivoLlave) { perror("llave.txt"); return 1; }
+    fprintf(archivoLlave, "%08X\n", K);
+    fclose(archivoLlave);
+
 
     FILE *archP = fopen("p.txt", "w");
     if (!archP) { perror("p.txt"); return 1; }
@@ -86,6 +101,6 @@ int main(void) {
     for (int i = 0; i < 8; i++) fprintf(archP_inv, "%d%c", P_inv[i], (i == 7) ? '\n' : ' ');
     fclose(archP_inv);
 
-    printf("Archivos generados: Sbox.txt, Sbox_inv.txt, p.txt, p_inv.txt\n");
+    printf("Archivos generados: Sbox.txt, Sbox_inv.txt, llave.txt, p.txt, p_inv.txt\n");
     return 0;
 }

@@ -209,8 +209,8 @@ unsigned char* base64_decode(const unsigned char *in, long in_len, long *out_len
 
 int main() {
     char nombreLlave[256], nombreSbox[256];
-    char ciphertext[256];
-    char plaintext[256];
+    char b64Path[256];
+    char outPath[256];
 
     unsigned int K;
     int S[16];
@@ -223,10 +223,10 @@ int main() {
     scanf("%255s", nombreSbox);
 
     printf("Ingrese el archivo base64 del cifrado (cipher.b64): ");
-    scanf("%255s", ciphertext);
+    scanf("%255s", b64Path);
 
     printf("Ingrese el nombre del archivo recuperado (ej. decipher.txt): ");
-    scanf("%255s", plaintext);
+    scanf("%255s", outPath);
 
     leer_permutacion_archivo("p.txt", P);
     K = leer_llave_hex(nombreLlave);
@@ -238,9 +238,9 @@ int main() {
     unsigned char k3 = (unsigned char)((K >> 24) & 0xFF);
 
     long b64_len = 0;
-    unsigned char *b64_txt = leer_archivo_texto(ciphertext, &b64_len);
+    unsigned char *b64_txt = leer_archivo_texto(b64Path, &b64_len);
     if (!b64_txt) {
-        fprintf(stderr, "No se pudo leer cipher.b64\n");
+        fprintf(stderr, "No se pudo leer el archivo base64\n");
         return 1;
     }
 
@@ -256,10 +256,10 @@ int main() {
 
     unsigned char iv0 = data[0];
     long len_ciphertext = data_len - 1;
-    unsigned char *ciphertext = data + 1;
+    unsigned char *ct = data + 1;
 
-    unsigned char *plaintext = (unsigned char*)malloc((size_t)len_ciphertext);
-    if (!plaintext) {
+    unsigned char *pt = (unsigned char*)malloc((size_t)len_ciphertext);
+    if (!pt) {
         fprintf(stderr, "malloc failed\n");
         free(data);
         return 1;
@@ -268,22 +268,22 @@ int main() {
     unsigned char iv = iv0;
     for (long i = 0; i < len_ciphertext; i++) {
         unsigned char ks = cifrar_bloque(iv, k0, k1, k2, k3, S, P);
-        plaintext[i] = (unsigned char)(ciphertext[i] ^ ks);
+        pt[i] = (unsigned char)(ct[i] ^ ks);
         iv++;
     }
 
-    if (!escribir_archivo_bytes(plaintext, plaintext, len_ciphertext)) {
+    if (!escribir_archivo_bytes(outPath, pt, len_ciphertext)) {
         fprintf(stderr, "Error escribiendo archivo recuperado\n");
-        free(plaintext);
+        free(pt);
         free(data);
         return 1;
     }
 
-    printf("\nDecifrado correctamente en mode CTR\n");
+    printf("\nDescifrado correctamente en modo CTR\n");
     printf("IV (hex): %02X\n", iv0);
-    printf("Salida: %s (len=%ld bytes)\n", plaintext, len_ciphertext);
+    printf("Salida: %s (len=%ld bytes)\n", outPath, len_ciphertext);
 
-    free(plaintext);
+    free(pt);
     free(data);
     return 0;
 }
