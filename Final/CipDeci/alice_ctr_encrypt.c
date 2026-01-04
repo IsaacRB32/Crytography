@@ -250,7 +250,7 @@ int main() {
         return 1;
     }
 
-    printf("\nOK: Archivo cifrado en CTR.\n");
+    printf("\nCifrado correctamente en mode CTR\n");
     printf("IV (hex): %02X\n", iv0);
     printf("Salida base64  : cipher.b64\n");
 

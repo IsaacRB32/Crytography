@@ -279,7 +279,7 @@ int main() {
         return 1;
     }
 
-    printf("\nOK: Archivo recuperado.\n");
+    printf("\nDecifrado correctamente en mode CTR\n");
     printf("IV (hex): %02X\n", iv0);
     printf("Salida: %s (len=%ld bytes)\n", plaintext, len_ciphertext);
 
