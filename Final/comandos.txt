@@ -1,0 +1,8 @@
+gcc configuracion_inicial.c -o setup
+./setup
+
+ gcc alice_ctr_encrypt.c -o alice  
+ ./alice  
+
+ gcc bob_ctr_decrypt.c -o bob 
+ ./bob   
